@@ -14,8 +14,7 @@ passwordSchema
   .has()
   .symbols(1) // Doit contenir un symbole
   .has()
-  .not()
-  .digits() // ne peut pas contenir de digit
+  .digits(4) // Doit contenir 4 digit (nombre)
   .is()
   .not(/[\]()[{}<>@]/) // ne peut pas contenir ces caractères
   .has()
@@ -23,7 +22,8 @@ passwordSchema
   .spaces() // Ne peut pas avoir d'espace entre les caractères
   .is()
   .not()
-  .oneOf(["Passw0rd", "Password123", "123456789", "iLoveYou", "Master"]); // liste noir des valeurs interdites
+  .oneOf(["Passw0rd", "Password123", "123456789", "iLoveYou", "Master", "azerty", "qwerty"]); 
+  // liste noir des valeurs interdites
 
   // on exporte le Schema password
 module.exports = passwordSchema;

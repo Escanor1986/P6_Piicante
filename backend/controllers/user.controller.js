@@ -14,10 +14,25 @@ const logError = require("http-errors");
 const User = require("../models/user.models");
 const passwordSchema = require("../config/password.config");
 const emailValidator = require("email-validator"); // fonctionne "comme une regexp"
+const MaskData = require("maskdata");
 
-// Concernant le SIGNUP
+// Concernant le SIGNUP ********************************************************************************
+// *****************************************************************************************************
+
 // !!! req et res sont des "flux" mais également des "eventEmitter" !!!
+
 exports.signup = (req, res, next) => {
+  // On paramètre MaskData pour la sécurité au niveau de l'email
+  const emailMask2Options = {
+    maskWith: "*",
+    unmaskedStartCharactersBeforeAt: 3,
+    unmaskedEndCharactersAfterAt: 2,
+    maskAtTheRate: false,
+  };
+  // Oon sélectionne le champ email à masquer
+  const email = req.body.email;
+  // On applique les paramètres au champ de l'email
+  const maskedEmail = MaskData.maskEmail2(email, emailMask2Options);
   // checking du password avec la méthode validate
   const checkedPassword = passwordSchema.validate(req.body.password);
   // checking de l'email avec validator
@@ -35,7 +50,7 @@ exports.signup = (req, res, next) => {
       .then((hash) => {
         // Création du module User sur base du Schema importé depuis models
         const user = new User({
-          email: req.body.email,
+          email: maskedEmail,
           password: hash,
         });
         // Enregistrement de l'utlisateur dans la base de données
@@ -54,10 +69,23 @@ exports.signup = (req, res, next) => {
   }
 };
 
-// Concernant le LOGIN
+// Concernant le LOGIN ********************************************************************************
+// ****************************************************************************************************
+
 exports.login = (req, res, next) => {
+  // On paramètre MaskData pour la sécurité au niveau de l'email
+  const emailMask2Options = {
+    maskWith: "*",
+    unmaskedStartCharactersBeforeAt: 3,
+    unmaskedEndCharactersAfterAt: 2,
+    maskAtTheRate: false,
+  };
+  // Oon sélectionne le champ email à masquer
+  const email = req.body.email;
+  // On applique les paramètres au champ de l'email
+  const maskedEmail = MaskData.maskEmail2(email, emailMask2Options);
   // récupération de l'adresse email du module de l'utilisateur avec la méthode "findOne" (utlisable également dans le CLI)
-  User.findOne({ email: req.body.email })
+  User.findOne({ email: maskedEmail })
     .then((user) => {
       // Si l'email n'est pas encore renseigné dans la base données
       if (!user) {
