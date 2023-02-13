@@ -19,7 +19,7 @@ const MaskData = require("maskdata");
 // Concernant le SIGNUP ********************************************************************************
 // *****************************************************************************************************
 
-// !!! req et res sont des "flux" mais également des "eventEmitter" !!!
+// !!!!!! req et res sont des "flux" mais également des "eventEmitter" !!!!!!
 
 exports.signup = (req, res, next) => {
   // On paramètre MaskData pour la sécurité au niveau de l'email
