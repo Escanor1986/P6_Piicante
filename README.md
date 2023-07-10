@@ -2,7 +2,10 @@ HotTakes
 This project was generated with Angular CLI version 13.2.4.
 
 Development server
-Run ng serve for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Go to the "frontend" folder then Run ng serve for a dev server or "npm start". Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+
+Node.js express app
+Go to the "backend" folder then Run "npm start" for a dev server. Server will runs on http://localhost:3000/. The app will automatically reload if you change any of the source files.
 
 Code scaffolding
 Run ng generate component component-name to generate a new component. You can also use ng generate directive|pipe|service|class|guard|interface|enum|module.
